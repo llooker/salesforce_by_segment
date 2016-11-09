@@ -9,10 +9,12 @@
 
   - dimension: converted_account_id
     type: string
+    hidden: true
     sql: ${TABLE}.converted_account_id
 
   - dimension: converted_contact_id
     type: string
+    hidden: true
     sql: ${TABLE}.converted_contact_id
 
   - dimension_group: converted
@@ -22,6 +24,7 @@
 
   - dimension: converted_opportunity_id
     type: string
+    hidden: true
     sql: ${TABLE}.converted_opportunity_id
 
   - dimension: country
@@ -75,6 +78,7 @@
 
   - dimension: owner_id
     type: string
+    hidden: true
     sql: ${TABLE}.owner_id
 
   - dimension_group: received
@@ -88,5 +92,5 @@
 
   - measure: count
     type: count
-    drill_fields: [id, campaign_members.count]
+    drill_fields: [id, status, campaign_members.count]
 

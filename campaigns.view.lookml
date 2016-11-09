@@ -23,6 +23,7 @@
   - dimension_group: end
     type: time
     timeframes: [time, date, week, month]
+    #FB 2016-11-09 TODO: Compare with the fivetran model, which has convert_tz:false 
     sql: ${TABLE}.end_date
 
   - dimension: is_active
@@ -35,6 +36,7 @@
 
   - dimension: last_modified_by_id
     type: string
+    hidden: true
     sql: ${TABLE}.last_modified_by_id
 
   - dimension_group: last_modified
@@ -82,10 +84,12 @@
 
   - dimension: owner_id
     type: string
+    hidden: true
     sql: ${TABLE}.owner_id
 
   - dimension: parent_id
     type: string
+    hidden: true
     sql: ${TABLE}.parent_id
 
   - dimension_group: received
@@ -104,5 +108,5 @@
 
   - measure: count
     type: count
-    drill_fields: [id, campaign_members.count]
+    drill_fields: [id, start, status, campaign_members.count]
 

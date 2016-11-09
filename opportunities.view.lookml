@@ -9,7 +9,7 @@
 
   - dimension: account_id
     type: string
-    # hidden: true
+    hidden: true
     sql: ${TABLE}.account_id
 
   - dimension_group: close
@@ -19,6 +19,7 @@
 
   - dimension: created_by_id
     type: string
+    hidden: true
     sql: ${TABLE}.created_by_id
 
   - dimension_group: created
@@ -49,6 +50,7 @@
 
   - dimension: last_modified_by_id
     type: string
+    hidden: true
     sql: ${TABLE}.last_modified_by_id
 
   - dimension_group: last_modified
@@ -68,6 +70,7 @@
 
   - dimension: owner_id
     type: string
+    hidden: true
     sql: ${TABLE}.owner_id
 
   - dimension: plan_c
