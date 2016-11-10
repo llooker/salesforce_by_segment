@@ -52,5 +52,10 @@
       relationship: many_to_one
 
 
-- explore: users
+- explore: sf__users
+  joins:
+    - join: sf__opportunities
+      type: left_outer
+      sql_on: ${sf__opportunities.owner_id} = ${sf__users.id}
+      relationship: one_to_many
 

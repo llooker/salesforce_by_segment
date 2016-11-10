@@ -1,4 +1,4 @@
-- view: users
+- view: sfbase__users
   sql_table_name: salesforce.users
   fields:
 
