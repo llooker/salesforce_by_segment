@@ -8,7 +8,7 @@
     NOT ${sf__accounts.is_deleted}
   joins:
     - join: owner
-      from: sf__users_nojoins
+      from: sf__users
       sql_on: ${sf__accounts.owner_id} = ${owner.id}
       relationship: many_to_one
     
@@ -36,6 +36,13 @@
 
 
 - explore: sf__leads
+  sql_always_where: NOT ${sf__leads.is_deleted}
+  joins:
+    - join: owner
+      from: sf__users
+      sql_on: ${sf__leads.owner_id} = ${owner.id}
+      relationship: many_to_one
+      
 
 - explore: sf__opportunities
   joins:
@@ -63,6 +70,11 @@
   joins:
     - join: sf__opportunities
       type: left_outer
-      sql_on: ${sf__opportunities.owner_id} = ${sf__users.id}
+      sql_on: ${sf__opportunities.owner_id} = ${sf__users_opportunities.id}
       relationship: one_to_many
+    - join: sf__users_opportunities
+      type: left_outer
+      sql_on: ${sf__users_opportunities.id} = ${sf__users.id}
+      relationship: one_to_one
+      
 
