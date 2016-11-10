@@ -17,10 +17,10 @@
 #      'Lost': ${probability} = 0
       
   - dimension: created
-    timeframes: [date, week, month, raw]
+    timeframes: [date, week, month, quarter, raw]
     
   - dimension: close
-    timeframes: [date, week, month, raw]    
+    timeframes: [date, week, month, quarter, raw]    
 
   - dimension: days_open
     type: number
@@ -103,14 +103,15 @@
     sql: 100.00 * ${count_open} / NULLIF(${count}, 0)
     value_format: '#0.00\%' 
 
-# Removed because salesforce_by_segment schema does not have opportunity.type
+## For use with opportunity.type
 #  - measure: count_new_business_won
 #    type: count
 #    filters:
 #      is_won: Yes
 #      sf__opportunity.type: '"New Business"'
 #    drill_fields: [sf__opportunity.id, sf__account.id, type]    
-    
+
+## For use with opportunity.type
 #  - measure: count_new_business
 #    type: count
 #    filters:
