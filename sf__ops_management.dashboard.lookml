@@ -109,6 +109,7 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     x_axis_scale: auto
+    x_axis_rotation: 30
     show_null_labels: false
     show_dropoff: true
     height: 4
