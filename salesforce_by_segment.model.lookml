@@ -4,7 +4,14 @@
 - include: "*.dashboard.lookml"  # include all the dashboards
 
 - explore: sf__accounts
-
+  sql_always_where: |
+    NOT ${sf__accounts.is_deleted}
+  joins:
+    - join: owner
+      from: sf__users_nojoins
+      sql_on: ${sf__accounts.owner_id} = ${owner.id}
+      relationship: many_to_one
+    
 - explore: campaign_members
   joins:
     - join: campaigns
