@@ -13,10 +13,10 @@
       sql_on: ${sf__accounts.owner_id} = ${owner.id}
       relationship: many_to_one
     
-#- explore: sfbase_campaign_members
+#- explore: sf__campaign_members
 #  joins:
 #    - join: sf__campaigns
-#      from: sfbase__campaigns
+#      from: sf__campaigns
 #      type: left_outer 
 #      sql_on: ${campaign_members.campaign_id} = ${sf__campaigns.id}
 #      relationship: many_to_one
@@ -27,19 +27,18 @@
 #      relationship: many_to_one
 
 
-- explore: sfbase__campaigns
+- explore: sf__campaigns
 
-- explore: sfbase__events
-  label: 'Sf events'
+- explore: sf__events
   joins:
     - join: sf__accounts
       type: left_outer 
-      sql_on: ${sfbase__events.account_id} = ${sf__accounts.id}
+      sql_on: ${sf__events.account_id} = ${sf__accounts.id}
       relationship: many_to_one
     - join: event_owners
       from: sf__users
       type: left_outer
-      sql_on: ${sfbase__events.owner_id} = ${event_owners.id}
+      sql_on: ${sf__events.owner_id} = ${event_owners.id}
       relationship: many_to_one
 
 
@@ -89,7 +88,7 @@
       relationship: many_to_one 
 
 #    - join: sf__campaigns
-#      from: sfbase__campaigns
+#      from: sf__campaigns
 #      sql_on: ${sf__opportunities.campaign_id} = ${sf__campaigns.id}
 #      relationship: many_to_one
 
@@ -98,18 +97,17 @@
       sql_on: ${sf__opportunities.owner_id} = ${opportunity_owners.id}
       relationship: many_to_one
 
-#- explore: sfbase__opportunity_field_history
+#- explore: sf__opportunity_field_history
 
-#- explore: sfbase__opportunity_history
+#- explore: sf__opportunity_history
 
-#- explore: sfbase__opportunity_stage
+#- explore: sf__opportunity_stage
 
-- explore: sfbase__tasks
-  label: 'Sf tasks'
+- explore: sf__tasks
   joins:
     - join: sf__accounts
       type: left_outer 
-      sql_on: ${sfbase__tasks.account_id} = ${sf__accounts.id}
+      sql_on: ${sf__tasks.account_id} = ${sf__accounts.id}
       relationship: many_to_one
 
 
