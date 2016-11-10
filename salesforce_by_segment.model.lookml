@@ -3,7 +3,7 @@
 - include: "*.view.lookml"       # include all the views
 - include: "*.dashboard.lookml"  # include all the dashboards
 
-- explore: accounts
+- explore: sf__accounts
 
 - explore: campaign_members
   joins:
@@ -12,9 +12,9 @@
       sql_on: ${campaign_members.campaign_id} = ${campaigns.id}
       relationship: many_to_one
 
-    - join: leads
+    - join: sf__leads
       type: left_outer 
-      sql_on: ${campaign_members.lead_id} = ${leads.id}
+      sql_on: ${campaign_members.lead_id} = ${sf__leads.id}
       relationship: many_to_one
 
 
@@ -22,19 +22,19 @@
 
 - explore: events
   joins:
-    - join: accounts
+    - join: sf__accounts
       type: left_outer 
-      sql_on: ${events.account_id} = ${accounts.id}
+      sql_on: ${events.account_id} = ${sf__accounts.id}
       relationship: many_to_one
 
 
-- explore: leads
+- explore: sf__leads
 
 - explore: opportunities
   joins:
-    - join: accounts
+    - join: sf__accounts
       type: left_outer 
-      sql_on: ${opportunities.account_id} = ${accounts.id}
+      sql_on: ${opportunities.account_id} = ${sf__accounts.id}
       relationship: many_to_one
 
 
@@ -46,9 +46,9 @@
 
 - explore: tasks
   joins:
-    - join: accounts
+    - join: sf__accounts
       type: left_outer 
-      sql_on: ${tasks.account_id} = ${accounts.id}
+      sql_on: ${tasks.account_id} = ${sf__accounts.id}
       relationship: many_to_one
 
 

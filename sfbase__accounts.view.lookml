@@ -1,4 +1,4 @@
-- view: accounts
+- view: sfbase__accounts
   sql_table_name: salesforce.accounts
   fields:
 

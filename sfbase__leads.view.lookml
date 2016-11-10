@@ -1,4 +1,4 @@
-- view: leads
+- view: sfbase__leads
   sql_table_name: salesforce.leads
   fields:
 
