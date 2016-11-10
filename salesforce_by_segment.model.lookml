@@ -1,7 +1,8 @@
 - connection: segment_sources
 
-- include: "*.view.lookml"       # include all the views
-- include: "*.dashboard.lookml"  # include all the dashboards
+- include: "sfbase__*.view.lookml"   # include base (generated) views
+- include: "sf__*.view.lookml"       # include extended views
+- include: "sf__*.dashboard.lookml"  # include the dashboards
 
 - explore: sf__accounts
   sql_always_where: |
