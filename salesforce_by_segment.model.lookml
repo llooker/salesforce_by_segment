@@ -38,10 +38,33 @@
 - explore: sf__leads
   sql_always_where: NOT ${sf__leads.is_deleted}
   joins:
-    - join: owner
+  joins:
+    - join: lead_owners
       from: sf__users
-      sql_on: ${sf__leads.owner_id} = ${owner.id}
+      sql_on: ${sf__leads.owner_id} = ${lead_owners.id}
       relationship: many_to_one
+  
+    - join: sf__accounts
+      sql_on: ${sf__leads.converted_account_id} = ${sf__accounts.id}
+      relationship: many_to_one
+
+    - join: account_owners
+      from: sf__users
+      sql_on: ${sf__accounts.owner_id} = ${account_owners.id}
+      relationship: many_to_one
+
+#    - join: contact
+#      sql_on: ${lead.converted_contact_id} = ${contact.id}
+#      relationship: many_to_one
+
+    - join: sf__opportunities
+      sql_on: ${sf__leads.converted_opportunity_id} = ${sf__opportunities.id}
+      relationship: many_to_one
+
+    - join: opportunity_owners
+      from: sf__users
+      sql_on: ${sf__opportunities.owner_id} = ${opportunity_owners.id}
+      relationship: many_to_one  
       
 
 - explore: sf__opportunities
