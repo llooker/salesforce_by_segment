@@ -1,11 +1,16 @@
-- view: opportunity_field_history
-  sql_table_name: salesforce.opportunity_field_history
+- view: sfbase__opportunity_history
+  sql_table_name: salesforce.opportunity_history
   fields:
 
   - dimension: id
     primary_key: true
     type: string
     sql: ${TABLE}.id
+
+  - dimension_group: close
+    type: time
+    timeframes: [time, date, week, month]
+    sql: ${TABLE}.close_date
 
   - dimension: created_by_id
     type: string
@@ -16,23 +21,9 @@
     timeframes: [time, date, week, month]
     sql: ${TABLE}.created_date
 
-  - dimension: field
-    type: string
-    sql: ${TABLE}.field
-
   - dimension: is_deleted
     type: yesno
     sql: ${TABLE}.is_deleted
-
-  - dimension_group: new_value
-    type: time
-    timeframes: [time, date, week, month]
-    sql: ${TABLE}.new_value
-
-  - dimension_group: old_value
-    type: time
-    timeframes: [time, date, week, month]
-    sql: ${TABLE}.old_value
 
   - dimension: opportunity_id
     type: string
@@ -43,7 +34,11 @@
     timeframes: [time, date, week, month]
     sql: ${TABLE}.received_at
 
+  - dimension: stage_name
+    type: string
+    sql: ${TABLE}.stage_name
+
   - measure: count
     type: count
-    drill_fields: [id]
+    drill_fields: [id, stage_name]
 

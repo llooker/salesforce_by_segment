@@ -1,4 +1,4 @@
-- view: opportunity_stage
+- view: sfbase__opportunity_stage
   sql_table_name: salesforce.opportunity_stage
   fields:
 

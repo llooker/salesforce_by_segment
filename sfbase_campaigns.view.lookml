@@ -1,4 +1,4 @@
-- view: campaigns
+- view: sfbase__campaigns
   sql_table_name: salesforce.campaigns
   fields:
 

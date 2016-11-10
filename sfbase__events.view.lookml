@@ -1,4 +1,4 @@
-- view: events
+- view: sfbase__events
   sql_table_name: salesforce.events
   fields:
 

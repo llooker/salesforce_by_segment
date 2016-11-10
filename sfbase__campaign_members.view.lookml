@@ -1,4 +1,4 @@
-- view: campaign_members
+- view: sfbase__campaign_members
   sql_table_name: salesforce.campaign_members
   fields:
 

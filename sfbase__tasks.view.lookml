@@ -1,4 +1,4 @@
-- view: tasks
+- view: sfbase__tasks
   sql_table_name: salesforce.tasks
   fields:
 
