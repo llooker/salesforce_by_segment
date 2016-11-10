@@ -1,4 +1,4 @@
-- view: opportunities
+- view: sfbase__opportunities
   sql_table_name: salesforce.opportunities
   fields:
 

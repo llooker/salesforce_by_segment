@@ -30,11 +30,11 @@
 
 - explore: sf__leads
 
-- explore: opportunities
+- explore: sf__opportunities
   joins:
     - join: sf__accounts
       type: left_outer 
-      sql_on: ${opportunities.account_id} = ${sf__accounts.id}
+      sql_on: ${sf__opportunities.account_id} = ${sf__accounts.id}
       relationship: many_to_one
 
 
