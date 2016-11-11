@@ -3,7 +3,12 @@
   layout: tile
   tile_size: 100
 
+## For use with accounts.billing_state and leads.state
 #  filters:
+#  - name: state
+#    type: field_filter
+#    explore: account
+#    field: account.billing_state
 
   elements:
   
@@ -14,10 +19,10 @@
     explore: sf__accounts
     measures: [sf__accounts.count]
     #listen:
-      #state: account.billing_state
+      #state: sf__accounts.billing_state
     filters:
       sf__accounts.type: '"Customer"'
-    sorts: [fb__accounts.count desc]
+    sorts: [sf__accounts.count desc]
     font_size: medium
     text_color: '#49719a'
     height: 2
@@ -54,7 +59,7 @@
     width: 4    
 
 
-  
+# For use with opportunities.type  
 #  - name: lead_to_win_funnel_this_quarter
 #    title: 'Lead to Win Funnel (Quarter-to-Date)'
 #    type: looker_column

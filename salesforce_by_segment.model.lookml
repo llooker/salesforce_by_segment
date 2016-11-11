@@ -7,6 +7,7 @@
 - explore: sf__accounts
   sql_always_where: |
     NOT ${sf__accounts.is_deleted}
+
   joins:
     - join: owner
       from: sf__users

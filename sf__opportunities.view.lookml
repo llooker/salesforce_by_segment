@@ -103,7 +103,7 @@
     sql: 100.00 * ${count_open} / NULLIF(${count}, 0)
     value_format: '#0.00\%' 
 
-## For use with opportunity.type
+## For use with opportunities.type
 #  - measure: count_new_business_won
 #    type: count
 #    filters:
@@ -111,7 +111,7 @@
 #      sf__opportunity.type: '"New Business"'
 #    drill_fields: [sf__opportunity.id, sf__account.id, type]    
 
-## For use with opportunity.type
+## For use with opportunities.type
 #  - measure: count_new_business
 #    type: count
 #    filters:
