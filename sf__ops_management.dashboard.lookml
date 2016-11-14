@@ -74,92 +74,145 @@
     text_color: black
     height: 2
     width: 4    
-  
-  - name: lead_to_win_funnel
-    title: 'Lead to Win Funnel'
-    type: looker_column
-    model: salesforce_by_segment
-    explore: sf__leads
-    measures: [sf__leads.count] #, sf__opportunities.count_new_business, sf__opportunities.count_new_business_won]
-    filters:
-      sf__leads.status: -%Unqualified%
-    listen:
-      date_range: sf__leads.created_date
-      #state: sf__leads.state
-    sorts: [sf__leads.count desc]
-    limit: 500
-    #query_timezone: America/Los_Angeles
-    stacking: ''
-    colors: ['#635189', '#a2dcf3', '#1ea8df']
-    show_value_labels: true
-    label_density: 10
-    label_color: ['#635189', '#a2dcf3', '#1ea8df']
-    legend_position: center
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: true
-    series_labels:
-      sf__leads.count: Leads
-      sf__opportunities.count_new_business: Opportunities
-      sf__opportunities.count_new_business_won: Won Opportunities
-    y_axis_combined: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    x_axis_scale: auto
-    x_axis_rotation: 30
-    show_null_labels: false
-    show_dropoff: true
-    height: 4
-    width: 6
-      
-  - name: lead_to_win_funnel_table
-    title: 'Lead to Win Funnel'
-    type: table
+
+## For use with opportunities.type. Enable relevant measures in sf__opportunities
+#  - name: lead_to_win_funnel
+#    title: 'Lead to Win Funnel'
+#    type: looker_column
+#    model: salesforce_by_segment
+#    explore: sf__leads
+#    measures: [sf__leads.count] #, sf__opportunities.count_new_business, sf__opportunities.count_new_business_won]
+#    filters:
+#      sf__leads.status: -%Unqualified%
+#    listen:
+#      date_range: sf__leads.created_date
+#      #state: sf__leads.state
+#    sorts: [sf__leads.count desc]
+#     limit: 500
+#     #query_timezone: America/Los_Angeles
+#     stacking: ''
+#     colors: ['#635189', '#a2dcf3', '#1ea8df']
+#     show_value_labels: true
+#     label_density: 10
+#     label_color: ['#635189', '#a2dcf3', '#1ea8df']
+#     legend_position: center
+#     x_axis_gridlines: false
+#     y_axis_gridlines: true
+#     show_view_names: true
+#     series_labels:
+#       sf__leads.count: Leads
+#       sf__opportunities.count_new_business: Opportunities
+#       sf__opportunities.count_new_business_won: Won Opportunities
+#     y_axis_combined: true
+#     show_y_axis_labels: true
+#     show_y_axis_ticks: true
+#     y_axis_tick_density: default
+#     show_x_axis_label: true
+#     show_x_axis_ticks: true
+#     x_axis_scale: auto
+#     x_axis_rotation: 30
+#     show_null_labels: false
+#     show_dropoff: true
+#     height: 4
+#     width: 6
+
+## For use with opportunities.type. Enable relevant measures in sf__opportunities
+#   - name: lead_to_win_funnel_table
+#     title: 'Lead to Win Funnel'
+#     type: table
+#     model: salesforce_by_segment
+#     explore: sf__leads
+#     dimensions: [sf__leads.created_month]
+#     measures: [sf__leads.count] #, sf__opportunities.count_new_business, sf__opportunities.count_new_business_won]
+#     filters:
+#       sf__leads.status: -%Unqualified%
+#     listen:
+#       #state: lead.state
+#       date_range: sf__leads.created_date
+#     sorts: [sf__leads.created_month desc]
+#     limit: 500
+#     #query_timezone: America/Los_Angeles
+#     show_view_names: true
+#     show_row_numbers: true
+#     stacking: ''
+#     colors: ['#635189', '#a2dcf3', '#1ea8df']
+#     show_value_labels: true
+#     label_density: 10
+#     label_color: ['#635189', '#a2dcf3', '#1ea8df']
+#     legend_position: center
+#     x_axis_gridlines: false
+#     y_axis_gridlines: true
+#     series_labels:
+#       sf__leads.count: Leads
+#       sf__opportunities.count_new_business: Opportunities
+#       sf__opportunities.count_new_business_won: Won Opportunities
+#       #__FILE: salesforce/marketing_leadership.sf.dashboard.lookml
+#       #__LINE_NUM: 84
+#     y_axis_combined: true
+#     show_y_axis_labels: true
+#     show_y_axis_ticks: true
+#     y_axis_tick_density: default
+#     show_x_axis_label: true
+#     show_x_axis_ticks: true
+#     x_axis_scale: auto
+#     show_null_labels: false
+#     show_dropoff: true
+#     y_axis_tick_density_custom: 5
+#     ordering: none
+#     height: 4
+#     width: 6
+    
+  - name: leads_by_month
+    title: "Lead gen by month"
+    type: looker_area
     model: salesforce_by_segment
     explore: sf__leads
     dimensions: [sf__leads.created_month]
-    measures: [sf__leads.count] #, sf__opportunities.count_new_business, sf__opportunities.count_new_business_won]
+    measures: [sf__leads.count]
     filters:
       sf__leads.status: -%Unqualified%
-    listen:
-      #state: lead.state
-      date_range: sf__leads.created_date
     sorts: [sf__leads.created_month desc]
-    limit: 500
-    #query_timezone: America/Los_Angeles
-    show_view_names: true
-    show_row_numbers: true
+    limit: '500'
+    column_limit: '50'
+    query_timezone: America/Los_Angeles
     stacking: ''
-    colors: ['#635189', '#a2dcf3', '#1ea8df']
     show_value_labels: true
     label_density: 10
-    label_color: ['#635189', '#a2dcf3', '#1ea8df']
     legend_position: center
     x_axis_gridlines: false
     y_axis_gridlines: true
-    series_labels:
-      sf__leads.count: Leads
-      sf__opportunities.count_new_business: Opportunities
-      sf__opportunities.count_new_business_won: Won Opportunities
-      #__FILE: salesforce/marketing_leadership.sf.dashboard.lookml
-      #__LINE_NUM: 84
+    show_view_names: true
+    limit_displayed_rows: false
     y_axis_combined: true
     show_y_axis_labels: true
     show_y_axis_ticks: true
     y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
     show_x_axis_label: true
     show_x_axis_ticks: true
     x_axis_scale: auto
+    y_axis_scale_mode: linear
+    show_null_points: true
+    point_style: none
+    interpolation: linear
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: '#808080'
+    show_row_numbers: true
+    colors: ['#635189', '#a2dcf3', '#1ea8df']
+    label_color: ['#635189', '#a2dcf3', '#1ea8df']
+    series_labels:
+      sf__leads.count: Leads
+      sf__opportunities.count_new_business: Opportunities
+      sf__opportunities.count_new_business_won: Won Opportunities
+      __FILE: salesforce_by_segment/sf__ops_management.dashboard.lookml
+      __LINE_NUM: 145
     show_null_labels: false
     show_dropoff: true
-    y_axis_tick_density_custom: 5
     ordering: none
-    height: 4
-    width: 6
+    series_types: {}
     
+  
   - name: rep_roster
     title: 'Rep Roster'
     type: table

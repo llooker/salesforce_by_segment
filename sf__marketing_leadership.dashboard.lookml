@@ -9,24 +9,51 @@
 #    type: field_filter
 #    explore: account
 #    field: account.billing_state
+  filters:
+  - name: current_period
+    type: date_filter
+    default_value: 10 months
 
   elements:
   
   - name: total_active_customers
     title: 'Total Active Customers'
     type: single_value
-    model: salesforce_by_segment
-    explore: sf__accounts
-    measures: [sf__accounts.count]
-    #listen:
-      #state: sf__accounts.billing_state
-    filters:
-      sf__accounts.type: '"Customer"'
-    sorts: [sf__accounts.count desc]
-    font_size: medium
-    text_color: '#49719a'
     height: 2
     width: 4
+    model: salesforce_by_segment
+    explore: sf__accounts
+    dimensions: [sf__accounts.type, sf__accounts.is_in_date_filter]
+    measures: [sf__accounts.count]
+    dynamic_fields:
+    - table_calculation: total
+      label: Total
+      expression: ${sf__accounts.count:total}
+      value_format: "#,###"
+      value_format_name: decimal_0
+    - table_calculation: count
+      label: Count
+      expression: ${sf__accounts.count}
+    filters:
+      sf__accounts.type: Customer
+    listen:
+      current_period: sf__accounts.created_date_condition
+    sorts: [sf__accounts.is_in_date_filter desc]
+    limit: '1'
+    column_limit: '50'
+    total: true
+    #query_timezone: America/Los_Angeles
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    single_value_title: Total customers
+    comparison_label: new in report period
+    hidden_fields: [sf__accounts.count]
+
+
+
     
   - name: total_revenue_this_quarter
     title: 'Total Revenue Closed (Quarter-to-Date)'
