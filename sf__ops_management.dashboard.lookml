@@ -10,17 +10,17 @@
 #    explore: sf__accounts
 #    field: sf__accounts.business_segment
 #    default_value: 'Enterprise'
-    
+
   - name: date_range
     type: date_filter
-    
+
 #  - name: state
 #    type: field_filter
 #    explore: account
-#    field: account.billing_state    
+#    field: account.billing_state
 
   elements:
-  
+
   - name: total_active_customers
     title: 'Total New Customers'
     type: single_value
@@ -38,7 +38,7 @@
     text_color: '#49719a'
     height: 2
     width: 4
-    
+
   - name: total_revenue
     title: 'Total Revenue Closed'
     type: single_value
@@ -56,7 +56,7 @@
     text_color: black
     height: 2
     width: 4
-    
+
   - name: average_deal_size
     title: 'Average Deal Size'
     type: single_value
@@ -73,8 +73,8 @@
     font_size: medium
     text_color: black
     height: 2
-    width: 4    
-  
+    width: 4
+
   - name: lead_to_win_funnel
     title: 'Lead to Win Funnel'
     type: looker_column
@@ -114,7 +114,7 @@
     show_dropoff: true
     height: 4
     width: 6
-      
+
   - name: lead_to_win_funnel_table
     title: 'Lead to Win Funnel'
     type: table
@@ -159,7 +159,7 @@
     ordering: none
     height: 4
     width: 6
-    
+
   - name: rep_roster
     title: 'Rep Roster'
     type: table
@@ -199,7 +199,7 @@
     show_row_numbers: true
     width: 6
     height: 4
-    
+
 ## For use with sf__acounts.business_segment
 #  - name: sales_segment_performance
 #    title: 'Sales Segment Performance'
@@ -238,7 +238,7 @@
 #    show_null_labels: false
 #    width: 6
 #    height: 4
-    
+
 ## For use with sf__opportunities.probability_group
 #  - name: pipeline_forecast_3_months
 #    title: 'Pipeline Forecast'
