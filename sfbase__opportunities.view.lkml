@@ -105,7 +105,7 @@ view: sfbase__opportunities {
 
   dimension: total_value_c {
     type: number
-    sql: ${TABLE}.total_value_c ;;
+    sql: ${TABLE}.amount ;;
   }
 
   dimension: upsell_c {

@@ -50,7 +50,7 @@
 #      state: sf__accounts.billing_state
 #      sales_team: sf__accounts.business_segment
     filters:
-      sf__opportunities.stage_name: '"Closed Won"'
+      sf__opportunities.stage_name: "%Closed Won%"
     sorts: [sf__opportunities.total_revenue desc]
     font_size: medium
     text_color: black
@@ -68,7 +68,7 @@
 #      state: sf__accounts.billing_state
 #      sales_team: sf__accounts.business_segment
     filters:
-      sf__opportunities.stage_name: '"Closed Won"'
+      sf__opportunities.stage_name: "%Closed Won%"
     sorts: [sf__opportunities.average_deal_size desc]
     font_size: medium
     text_color: black
@@ -80,9 +80,12 @@
     type: looker_column
     model: salesforce_by_segment
     explore: sf__leads
-    measures: [sf__leads.count] #, sf__opportunities.count_new_business, sf__opportunities.count_new_business_won]
+    fields: [sf__leads.count, sf__leads.converted_to_account_count, sf__leads.converted_to_contact_count,
+    sf__leads.converted_to_opportunity_count, sf__opportunities.count_won] #added more fields to create full leads to win funnel
+    #measures: [sf__leads.count, sf__opportunities.count_new_business, sf__opportunities.count_new_business_won]
     filters:
-      sf__leads.status: -%Unqualified%
+      sf__leads.created_date: ''  #added filter
+      sf__leads.status: "-%Unqualified%"
     listen:
       date_range: sf__leads.created_date
       #state: sf__leads.state
@@ -120,10 +123,14 @@
     type: table
     model: salesforce_by_segment
     explore: sf__leads
-    dimensions: [sf__leads.created_month]
-    measures: [sf__leads.count] #, sf__opportunities.count_new_business, sf__opportunities.count_new_business_won]
+    #dimensions: [sf__leads.created_month]
+    fields: [sf__leads.created_month, sf__leads.count, sf__leads.converted_to_account_count,
+    sf__leads.converted_to_contact_count, sf__leads.converted_to_opportunity_count,
+    sf__opportunities.count_won]
+    #measures: [sf__leads.count] #, sf__opportunities.count_new_business, sf__opportunities.count_new_business_won]
     filters:
-      sf__leads.status: -%Unqualified%
+      sf__leads.status: "-%Unqualified%"
+      sf__leads.created_date: ''
     listen:
       #state: lead.state
       date_range: sf__leads.created_date

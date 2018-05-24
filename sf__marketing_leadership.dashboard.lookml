@@ -28,20 +28,37 @@
     height: 2
     width: 4
 
+#Remade the total_revenue_this_quarter using total_revenue and contains "Closed Won" see old ML commented out directly below
   - name: total_revenue_this_quarter
     title: 'Total Revenue Closed (Quarter-to-Date)'
-    type: single_value
     model: salesforce_by_segment
     explore: sf__opportunities
-    measures: [sf__opportunities.total_value_c]
+    type: single_value
+    fields: [sf__opportunities.total_revenue]
     filters:
       sf__opportunities.close_quarter: this quarter
-      sf__opportunities.stage_name: '"Closed Won"'
-    sorts: [sf__opportunities.total_value_c desc]
+      sf__opportunities.stage_name: "%Closed Won%"
+    limit: 1000
+    column_limit: 50
     font_size: medium
     text_color: black
     height: 2
     width: 4
+
+  #- name: total_revenue_this_quarter
+  #  title: 'Total Revenue Closed (Quarter-to-Date)'
+  #  type: single_value
+  #  model: salesforce_by_segment
+  #  explore: sf__opportunities
+  #  measures: [sf__opportunities.total_value_c]
+  #  filters:
+  #    sf__opportunities.close_quarter: this quarter
+  #    sf__opportunities.stage_name: '"Closed Won"'
+  #  sorts: [sf__opportunities.total_value_c desc]
+  #  font_size: medium
+  #  text_color: black
+  #  height: 2
+  #  width: 4
 
   - name: average_deal_size_this_quarter
     title: 'Average Deal Size (Quarter-to-Date)'
@@ -51,7 +68,7 @@
     measures: [sf__opportunities.average_deal_size]
     filters:
       sf__opportunities.close_quarter: this quarter
-      sf__opportunities.stage_name: '"Closed Won"'
+      sf__opportunities.stage_name: "%Closed Won%" #Changed from is "Closed Won" to contains
     sorts: [sf__opportunities.average_deal_size desc]
     font_size: medium
     text_color: black
@@ -108,7 +125,7 @@
     measures: [sf__opportunities.count]
     filters:
       sf__opportunities.close_month: before tomorrow
-      sf__opportunities.stage_name: '"Closed Won"'
+      sf__opportunities.stage_name: "%Closed Won%" #Changed is "Closed Won" to contains "Closed Won"
     sorts: [sf__opportunities.close_month] #, sf__accounts.business_segment, sf__accounts.business_segment__sort_]
     limit: 500
     column_limit: 50
