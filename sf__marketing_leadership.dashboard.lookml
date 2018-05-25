@@ -77,43 +77,44 @@
 
 
 # For use with opportunities.type
-#  - name: lead_to_win_funnel_this_quarter
-#    title: 'Lead to Win Funnel (Quarter-to-Date)'
-#    type: looker_column
-#    model: salesforce_by_segment
-#    explore: sf__leads
-#    measures: [sf__leads.count, sf__opportunities.count_new_business, sf__opportunity.count_new_business_won]
+  - name: lead_to_win_funnel_this_quarter
+    title: 'Lead to Win Funnel (Quarter-to-Date)'
+    type: looker_column
+    model: salesforce_by_segment
+    explore: sf__leads
+#    fields: [sf__leads.count, sf__opportunities.count_new_business, sf__opportunity.count_new_business_won]
+    fields: [sf__leads.count, sf__leads.converted_to_account_count, sf__leads.converted_to_opportunity_count, sf__opportunities.count_won]
 ##    listen:
 ##      state: sf__leads.state
-#    filters:
-#      sf__leads.status: -%Unqualified%
-#      sf__leads.created_date: this quarter
-#    sorts: [sf__leads.count desc]
-#    limit: 500
-#    stacking: ''
-#    colors: ['#635189', '#a2dcf3', '#1ea8df']
-#    show_value_labels: true
-#    label_density: 10
-#    label_color: ['#635189', '#a2dcf3', '#1ea8df']
-#    legend_position: center
-#    x_axis_gridlines: false
-#    y_axis_gridlines: true
-#    show_view_names: true
-#    series_labels:
-#      sf__leads.count: Leads
-#      sf__opportunities.count_new_business: Opportunities
-#      sf__opportunities.count_new_business_won: Won Opportunities
-#    y_axis_combined: true
-#    show_y_axis_labels: true
-#    show_y_axis_ticks: true
-#    y_axis_tick_density: default
-#    show_x_axis_label: true
-#    show_x_axis_ticks: true
-#    x_axis_scale: auto
-#    show_null_labels: false
-#    show_dropoff: true
-#    height: 4
-#    width: 6
+    filters:
+      sf__leads.status: "-%Unqualified%"
+      sf__leads.created_date: this quarter
+    sorts: [sf__leads.count desc]
+    limit: 500
+    stacking: ''
+    colors: ['#635189', '#a2dcf3', '#1ea8df']
+    show_value_labels: true
+    label_density: 10
+    label_color: ['#635189', '#a2dcf3', '#1ea8df']
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    series_labels:
+      sf__leads.count: Leads
+      sf__opportunities.count_new_business: Opportunities
+      sf__opportunities.count_new_business_won: Won Opportunities
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    show_null_labels: false
+    show_dropoff: true
+    height: 4
+    width: 6
 
   - name: deals_closed_by_segment
     title: 'Deals Closed by Month' #by Segment
