@@ -7,15 +7,38 @@ view: sf__opportunities {
     sql: ${is_closed} AND NOT ${is_won} ;;
   }
 
-  #  - dimension: probability_group
-  #    sql_case:
-  #      'Won': ${probability} = 100
-  #      'Above 80%': ${probability} > 80
-  #      '60 - 80%': ${probability} > 60
-  #      '40 - 60%': ${probability} > 40
-  #      '20 - 40%': ${probability} > 20
-  #      'Under 20%': ${probability} > 0
-  #      'Lost': ${probability} = 0
+  dimension: probability_group {
+      case:{
+        when:{
+          sql: ${TABLE}.probability = 100;;
+          label: "Won"
+        }
+        when:{
+          sql: ${TABLE}.probability > 80;;
+          label: "Above 80%"
+        }
+        when: {
+          sql: ${TABLE}.probability > 60;;
+          label: "60 - 80%"
+        }
+        when: {
+          sql: ${TABLE}.probability > 40;;
+          label: "40 - 60%"
+        }
+        when: {
+          sql: ${TABLE}.probability > 20;;
+          label: "20 - 40%"
+        }
+        when: {
+          sql: ${TABLE}.probability > 0;;
+          label: "Under 20%"
+        }
+        when: {
+          sql: ${TABLE}.probability = 0;;
+          label: "Lost"
+        }
+      }
+  }
 
   dimension: created_raw {
     type:  date_raw
