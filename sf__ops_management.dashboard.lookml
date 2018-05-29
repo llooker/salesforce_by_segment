@@ -80,7 +80,7 @@
     type: looker_column
     model: salesforce_by_segment
     explore: sf__leads
-    fields: [sf__leads.count, sf__leads.converted_to_account_count, sf__leads.converted_to_contact_count,
+    fields: [sf__leads.count, sf__leads.converted_to_account_count,
     sf__leads.converted_to_opportunity_count, sf__opportunities.count_won] #added more fields to create full leads to win funnel
     #measures: [sf__leads.count, sf__opportunities.count_new_business, sf__opportunities.count_new_business_won]
     filters:
@@ -247,41 +247,41 @@
 #    height: 4
 
 ## For use with sf__opportunities.probability_group
-#  - name: pipeline_forecast_3_months
-#    title: 'Pipeline Forecast'
-#    type: looker_column
-#    model: salesforce_by_segment
-#    explore: sf__opportunity
-#    dimensions: [sf__opportunities.probability_group, sf__opportunities.close_month]
-#    pivots: [sf__opportunities.probability_group]
-#    measures: [sf__opportunities.total_revenue]
-#    filters:
-#      sf__opportunities.close_month: 9 months ago for 12 months
-#    sorts: [sf__opportunities.probability_group, sf__opportunities.close_month, sf__opportunities.probability_group__sort_]
-##    query_timezone: America/Los_Angeles
-#    stacking: normal
-#    hidden_series: [Under 20%, Lost]
-#    colors: [lightgrey, '#1FD110', '#95d925', '#d0ca0e', '#c77706', '#bf2006', black]
-#    show_value_labels: true
-#    label_density: 21
-#    legend_position: center
-#    x_axis_gridlines: false
-#    y_axis_gridlines: false
-#    show_view_names: false
-#    series_labels:
-#      '0': Lost
-#      100 or Above: Won
-#    y_axis_combined: true
-#    show_y_axis_labels: true
-#    show_y_axis_ticks: true
-#    y_axis_labels: [Amount in Pipeline]
-#    y_axis_tick_density: default
-#    show_x_axis_label: true
-#    x_axis_label: Opportunity Close Month
-#    show_x_axis_ticks: true
-#    x_axis_datetime_label: '%b %y'
-#    x_axis_scale: ordinal
-#    ordering: none
-#    show_null_labels: false
-#    width: 6
-#    height: 4
+  - name: pipeline_forecast_3_months
+    title: 'Pipeline Forecast'
+    type: looker_column
+    model: salesforce_by_segment
+    explore: sf__opportunities
+    dimensions: [sf__opportunities.probability_group, sf__opportunities.close_month]
+    pivots: [sf__opportunities.probability_group]
+    measures: [sf__opportunities.total_revenue]
+    filters:
+      sf__opportunities.close_month: 9 months ago for 12 months
+    sorts: [sf__opportunities.probability_group, sf__opportunities.close_month, sf__opportunities.probability_group__sort_]
+#    query_timezone: America/Los_Angeles
+    stacking: normal
+    hidden_series: [Under 20%, Lost]
+    colors: [lightgrey, '#1FD110', '#95d925', '#d0ca0e', '#c77706', '#bf2006', black]
+    show_value_labels: true
+    label_density: 21
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: false
+    show_view_names: false
+    series_labels:
+      '0': Lost
+      100 or Above: Won
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_labels: [Amount in Pipeline]
+    y_axis_tick_density: default
+    show_x_axis_label: true
+    x_axis_label: Opportunity Close Month
+    show_x_axis_ticks: true
+    x_axis_datetime_label: '%b %y'
+    x_axis_scale: ordinal
+    ordering: none
+    show_null_labels: false
+    width: 6
+    height: 4
