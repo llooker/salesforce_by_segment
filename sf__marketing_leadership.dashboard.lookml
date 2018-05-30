@@ -214,13 +214,13 @@
 #    title: 'Sales Segment Performance'
 #    type: looker_column
 #    model: salesforce_by_segment
-#    explore: opportunities
-#    dimensions: [accounts.industry_segment_c]
-#    measures: [accounts.count_customers, opportunities.total_revenue]
+#    explore: sf__opportunities
+#    dimensions: [sf__accounts.industry]
+#    measures: [sf__accounts.count_customers, sf__opportunities.total_revenue]
 #    filters:
-#      accounts.industry_segment_c: -Unknown
-#      opportunity.stage_name: '"Closed Won"'
-#    sorts: [opportunities.close_month, accounts.industry_segment_c, accounts.industy_segment_c__sort_]
+#      sf__accounts.industry: -Unknown
+#      sf__opportunity.stage_name: "%Closed Won%"
+#    sorts: [sf__opportunities.close_month, sf__accounts.industry, sf__accounts.industy__sort_]
 #    limit: 500
 #    column_limit: 50
 #    stacking: ''
