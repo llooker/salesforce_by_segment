@@ -2,11 +2,6 @@ include: "sfbase__opportunities.view.lkml"
 view: sf__opportunities {
   extends: [sfbase__opportunities]
 
-  dimension: is_lost {
-    type: yesno
-    sql: ${is_closed} AND NOT ${is_won} ;;
-  }
-
   dimension: probability_group {
       case:{
         when:{

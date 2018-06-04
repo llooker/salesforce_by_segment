@@ -50,6 +50,39 @@ view: sf__leads {
     }
   }
 
+  measure: average_opportunity_velocity {
+    label: "Average Opportunity Velocity"
+    type: average
+    sql: datediff(days, ${created_date}, ${converted_date}) ;;
+
+    filters: {
+      field: converted_opportunity_id
+      value: "-null"
+    }
+  }
+
+  measure: average_contact_velocity {
+    label: "Average Contact Velocity"
+    type: average
+    sql: datediff(days, ${created_date}, ${converted_date}) ;;
+
+    filters: {
+      field: converted_contact_id
+      value: "-null"
+    }
+  }
+
+  measure: average_account_velocity {
+    label: "Average Account Velocity"
+    type: average
+    sql: datediff(days, ${created_date}, ${converted_date}) ;;
+
+    filters: {
+      field: converted_account_id
+      value: "-null"
+    }
+  }
+
   measure: conversion_to_contact_percent {
     sql: 100.00 * ${converted_to_contact_count} / NULLIF(${count},0) ;;
     type: number

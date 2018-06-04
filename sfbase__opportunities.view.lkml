@@ -51,6 +51,11 @@ view: sfbase__opportunities {
     sql: ${TABLE}.is_won ;;
   }
 
+  dimension: is_lost {
+    type: yesno
+    sql: ${is_closed} AND NOT ${is_won} ;;
+  }
+
   dimension_group: last_activity {
     type: time
     timeframes: [time, date, week, month]
@@ -111,6 +116,28 @@ view: sfbase__opportunities {
   dimension: upsell_c {
     type: yesno
     sql: ${TABLE}.upsell_c ;;
+  }
+
+  measure: average_won_velocity {
+    label: "Average Won Velocity"
+    type: average
+    sql: datediff(days, ${created_date}, ${close_date}) ;;
+
+    filters: {
+      field: is_won
+      value: "Yes"
+    }
+  }
+
+  measure: average_lost_velocity {
+    label: "Average Lost Velocity"
+    type: average
+    sql: datediff(days, ${created_date}, ${close_date}) ;;
+
+    filters: {
+      field: is_lost
+      value: "Yes"
+    }
   }
 
   measure: count {
