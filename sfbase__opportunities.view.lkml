@@ -121,7 +121,9 @@ view: sfbase__opportunities {
   measure: average_won_velocity {
     label: "Average Won Velocity"
     type: average
+    drill_fields: [detail*]
     sql: datediff(days, ${created_date}, ${close_date}) ;;
+    value_format: "#"
 
     filters: {
       field: is_won
@@ -132,12 +134,24 @@ view: sfbase__opportunities {
   measure: average_lost_velocity {
     label: "Average Lost Velocity"
     type: average
+    drill_fields: [detail*]
     sql: datediff(days, ${created_date}, ${close_date}) ;;
+    value_format: "#"
 
     filters: {
       field: is_lost
       value: "Yes"
     }
+  }
+
+  set: detail {
+    fields: [id,
+      #    - company
+      #    - name
+      #    - title
+      #    - phone
+      #    - email
+      is_won, total_value_c, owner_id]
   }
 
   measure: count {

@@ -53,6 +53,7 @@ view: sf__leads {
   measure: average_opportunity_velocity {
     label: "Average Opportunity Velocity"
     type: average
+    drill_fields: [detail*]
     sql: datediff(days, ${created_date}, ${converted_date}) ;;
 
     filters: {
@@ -64,6 +65,7 @@ view: sf__leads {
   measure: average_contact_velocity {
     label: "Average Contact Velocity"
     type: average
+    drill_fields: [detail*]
     sql: datediff(days, ${created_date}, ${converted_date}) ;;
 
     filters: {
@@ -75,6 +77,7 @@ view: sf__leads {
   measure: average_account_velocity {
     label: "Average Account Velocity"
     type: average
+    drill_fields: [detail*]
     sql: datediff(days, ${created_date}, ${converted_date}) ;;
 
     filters: {
@@ -102,7 +105,7 @@ view: sf__leads {
   }
 
   set: detail {
-    fields: [id,
+    fields: [id, name,
       #    - company
       #    - name
       #    - title
