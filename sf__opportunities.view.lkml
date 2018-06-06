@@ -35,6 +35,11 @@ view: sf__opportunities {
       }
   }
 
+  dimension: company_name {
+    type: string
+    sql:  ${TABLE}.name;;
+  }
+
   dimension: created_raw {
     type:  date_raw
     sql: ${TABLE}.created_date ;;
