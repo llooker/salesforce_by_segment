@@ -66,7 +66,33 @@ view: sf__opportunities {
     sql: ${days_open} <=60 AND ${is_closed} = 'yes' AND ${is_won} = 'yes' ;;
   }
 
+  dimension: type {
+    type: string
+    sql: ${TABLE}.type ;;
+  }
+
+  dimension: annual_contract_value {
+    type: number
+    sql: ${TABLE}.annual_contract_value_c ;;
+  }
+
+  dimension: bookings_value {
+    type: number
+    sql: ${TABLE}.bookings_value_c ;;
+  }
+
+  dimension: contract_term_months {
+    type: number
+    sql: ${TABLE}.contract_term_months_c_c ;;
+  }
+
   # measures #
+
+  measure: sum_of_bookings_value {
+    type: sum
+    sql:  ${TABLE}.bookings_value_c;;
+    value_format: "$#,##0"
+  }
 
   measure: total_revenue {
     type: sum
