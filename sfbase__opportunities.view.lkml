@@ -110,7 +110,14 @@ view: sfbase__opportunities {
 
   dimension: total_value_c {
     type: number
-    sql: ${TABLE}.amount ;;
+    sql:
+    case
+    when ${TABLE}.currency_iso_code::varchar = 'GBP' then (1.34*${TABLE}.amount)::varchar
+    when ${TABLE}.currency_iso_code::varchar = 'EUR' then (1.18*${TABLE}.amount)::varchar
+    when ${TABLE}.currency_iso_code::varchar = 'JPY' then (0.0091*${TABLE}.amount)::varchar
+    when ${TABLE}.currency_iso_code::varchar = 'USD' then (${TABLE}.amount)::varchar
+    else null
+    end ;;
   }
 
   dimension: upsell_c {
