@@ -108,16 +108,14 @@ view: sfbase__opportunities {
     sql: ${TABLE}.stage_name ;;
   }
 
+  dimension: channel_partner {
+    type: string
+    sql:  ${TABLE}.channel_partner_c ;;
+  }
+
   dimension: total_value_c {
     type: number
-    sql:
-    case
-    when ${TABLE}.currency_iso_code::varchar = 'GBP' then (1.34*${TABLE}.amount)::varchar
-    when ${TABLE}.currency_iso_code::varchar = 'EUR' then (1.18*${TABLE}.amount)::varchar
-    when ${TABLE}.currency_iso_code::varchar = 'JPY' then (0.0091*${TABLE}.amount)::varchar
-    when ${TABLE}.currency_iso_code::varchar = 'USD' then (${TABLE}.amount)::varchar
-    else null
-    end ;;
+    sql: ${TABLE}.amount ;;
   }
 
   dimension: upsell_c {

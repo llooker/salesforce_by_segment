@@ -109,7 +109,7 @@ view: sf__opportunities {
 
   measure: sum_of_bookings_value {
     type: sum
-    sql: ${bookings_value_USD} ;;
+    sql: ${bookings_value} ;;
     value_format: "$#,##0"
   }
 
