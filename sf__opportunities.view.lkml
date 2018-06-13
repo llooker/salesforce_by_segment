@@ -86,20 +86,6 @@ view: sf__opportunities {
     sql: ${TABLE}.contract_term_months_c_c ;;
   }
 
-  dimension: bookings_value_USD {
-    type: number
-    sql:
-      case
-        when ${TABLE}.currency_iso_code::varchar = 'GBP' then (1.34*${TABLE}.bookings_value_c)::varchar
-        when ${TABLE}.currency_iso_code::varchar = 'EUR' then (1.18*${TABLE}.bookings_value_c)::varchar
-        when ${TABLE}.currency_iso_code::varchar = 'JPY' then (0.0091*${TABLE}.bookings_value_c)::varchar
-        when ${TABLE}.currency_iso_code::varchar = 'USD' then (${TABLE}.bookings_value_c)::varchar
-        else null
-        end ;;
-
-    value_format: "$#,##0"
-  }
-
   dimension: currency {
     type: string
     sql: ${TABLE}.currency_iso_code ;;
