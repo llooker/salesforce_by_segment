@@ -6,11 +6,22 @@ view: sf__leads {
     #X# Invalid LookML inside "dimension": {"timeframes":["time","date","week","month","raw"]}
   }
 
-  dimension: name {
-    html: <a href="https://na9.salesforce.com/{{ lead.id._value }}" target="_new">
-      <img src="https://www.salesforce.com/favicon.ico" height=16 width=16></a>
-      {{ linked_value }}
-      ;;
+  dimension: mql_date {
+    sql:CASE
+    WHEN ${TABLE}.marketing_qualified_date_c is not null THEN ${TABLE}.marketing_qualified_date_c
+    WHEN ${TABLE}.mkto_71_acquisition_program_c = 'WF Trial-Video Form'  THEN ${TABLE}.mkto_71_acquisition_date_c
+    WHEN ${TABLE}.mkto_71_acquisition_program_c = 'WF Trial-SCCM Free Form'  THEN ${TABLE}.mkto_71_acquisition_date_c
+    WHEN ${TABLE}.mkto_71_acquisition_program_c = 'WF Trial-Platform Form'  THEN ${TABLE}.mkto_71_acquisition_date_c
+    WHEN ${TABLE}.mkto_71_acquisition_program_c = 'WF Trial Request Form'  THEN ${TABLE}.mkto_71_acquisition_date_c
+    WHEN ${TABLE}.mkto_71_acquisition_program_c = 'WF Contact Form'  THEN ${TABLE}.mkto_71_acquisition_date_c
+    ELSE null
+    END
+    ;;
+  }
+
+  dimension: company {
+    type: string
+    sql: ${TABLE}.company ;;
   }
 
   #  - dimension: number_of_employees_tier
@@ -19,6 +30,60 @@ view: sf__leads {
   #    sql: ${number_of_employees}
   #    style: integer
   #    description: "Number of Employees as reported on the Salesforce lead"
+
+  dimension: acquisition_program {
+    type: string
+    sql: ${TABLE}.mkto_71_acquisition_program_c ;;
+  }
+
+  dimension_group: acquisition_date {
+    type: time
+    hidden: yes
+    timeframes: [time, date, week, month]
+    sql: ${TABLE}.mkto_71_acquisition_date_c ;;
+  }
+
+  dimension_group: last_status_updated_timestamp {
+    type: time
+    hidden: yes
+    timeframes: [time, date, week, month]
+    sql: ${TABLE}.statushistory_last_status_updated_c ;;
+  }
+
+  dimension: net_new_lead_timestamp {
+    type: date
+    sql: ${TABLE}.new_lead_status_timestamp_c ;;
+  }
+
+  dimension_group: marketing_qualified_timestamp {
+    type: time
+    hidden: yes
+    timeframes: [time, date, week, month]
+    sql: ${TABLE}.marketing_qualified_date_c ;;
+  }
+
+  measure: net_new_leads_count {
+    type: count
+    drill_fields: [detail*]
+    filters: {
+      field: net_new_lead_timestamp
+      value: "-null"
+    }
+  }
+
+  measure:  net_active_leads_count {
+    type: count
+    drill_fields: [detail*]
+  }
+
+  measure: net_mql_count {
+    type: count
+    drill_fields: [detail*]
+    filters: {
+      field: mql_date
+      value: "-null"
+    }
+  }
 
   measure: converted_to_contact_count {
     type: count
@@ -105,7 +170,7 @@ view: sf__leads {
   }
 
   set: detail {
-    fields: [id, name,
+    fields: [id,
       #    - company
       #    - name
       #    - title
