@@ -7,6 +7,7 @@ view: sf__leads {
   }
 
   dimension: mql_date {
+    type: date
     sql:CASE
     WHEN ${TABLE}.marketing_qualified_date_c is not null THEN ${TABLE}.marketing_qualified_date_c
     WHEN ${TABLE}.mkto_71_acquisition_program_c = 'WF Trial-Video Form'  THEN ${TABLE}.mkto_71_acquisition_date_c
@@ -112,6 +113,22 @@ view: sf__leads {
     filters: {
       field: converted_opportunity_id
       value: "-null"
+    }
+  }
+
+  measure: days_mql_open{
+    label: "Days MQL Open"
+    type: average
+    sql: datediff(days, ${mql_date}, getdate()) ;;
+
+    filters: {
+      field: mql_date
+      value: "-null"
+    }
+
+    filters: {
+      field: converted_opportunity_id
+      value: "null"
     }
   }
 
