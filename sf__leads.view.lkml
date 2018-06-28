@@ -151,6 +151,18 @@ view: sf__leads {
     }
   }
 
+  measure: average_mql_velocity {
+    label: "Average MQL Velocity"
+    type: average
+    drill_fields: [detail*]
+    sql: datediff(days, ${created_date}, ${mql_date}) ;;
+
+    filters: {
+      field: mql_date
+      value: "-null"
+    }
+  }
+
   measure: conversion_to_contact_percent {
     sql: 100.00 * ${converted_to_contact_count} / NULLIF(${count},0) ;;
     type: number
