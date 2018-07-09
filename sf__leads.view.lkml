@@ -6,7 +6,7 @@ view: sf__leads {
     #X# Invalid LookML inside "dimension": {"timeframes":["time","date","week","month","raw"]}
   }
 
-  dimension: mql_date {
+  dimension: mql_date_dev {
     type: date
     sql:CASE
     WHEN ${TABLE}.marketing_qualified_date_c is not null THEN ${TABLE}.marketing_qualified_date_c
@@ -18,6 +18,11 @@ view: sf__leads {
     ELSE null
     END
     ;;
+  }
+
+  dimension: mql_date {
+    type: date
+    sql: ${TABLE}.marketing_qualified_date_c ;;
   }
 
   dimension: company {
