@@ -15,7 +15,7 @@
   - name: total_active_customers
     title: 'Total Active Customers'
     type: single_value
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__accounts
     measures: [sf__accounts.count]
     #listen:
@@ -31,7 +31,7 @@
 #Remade the total_revenue_this_quarter using total_revenue and contains "Closed Won" see old ML commented out directly below
   - name: total_revenue_this_quarter
     title: 'Total Revenue Closed (Quarter-to-Date)'
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__opportunities
     type: single_value
     fields: [sf__opportunities.total_revenue]
@@ -48,7 +48,7 @@
   #- name: total_revenue_this_quarter
   #  title: 'Total Revenue Closed (Quarter-to-Date)'
   #  type: single_value
-  #  model: salesforce_by_segment
+  #  model: salesforce
   #  explore: sf__opportunities
   #  measures: [sf__opportunities.total_value_c]
   #  filters:
@@ -63,7 +63,7 @@
   - name: average_deal_size_this_quarter
     title: 'Average Deal Size (Quarter-to-Date)'
     type: single_value
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__opportunities
     measures: [sf__opportunities.average_deal_size]
     filters:
@@ -80,7 +80,7 @@
   - name: lead_to_win_funnel_this_quarter
     title: 'Lead to Win Funnel (Quarter-to-Date)'
     type: looker_column
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__leads
 #    fields: [sf__leads.count, sf__opportunities.count_new_business, sf__opportunity.count_new_business_won]
     fields: [sf__leads.count, sf__leads.converted_to_account_count, sf__leads.converted_to_opportunity_count, sf__opportunities.count_won]
@@ -119,7 +119,7 @@
   - name: deals_closed_by_segment
     title: 'Deals Closed by Month' #by Segment
     type: looker_area
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__opportunities
     dimensions: [sf__opportunities.close_month] #, sf__accounts.business_segment]
     #pivots: [sf__accounts.business_segment]
@@ -152,7 +152,7 @@
 #  - name: prospects_by_forecast_category_and_segment
 #    title: 'Prospects by Forecast Category and Segment'
 #    type: looker_donut_multiples
-#    model: salesforce_by_segment
+#    model: salesforce
 #    explore: sf__opportunities
 #    dimensions: [account.business_segment, opportunity.forecast_category]
 #    pivots: [opportunity.forecast_category]
@@ -175,7 +175,7 @@
   - name: pipeline_forecast
     title: 'Pipeline Forecast'
     type: looker_column
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__opportunities
     dimensions: [sf__opportunities.probability_group, sf__opportunities.close_month]
     pivots: [sf__opportunities.probability_group]
@@ -213,7 +213,7 @@
 #  - name: sales_segment_performance
 #    title: 'Sales Segment Performance'
 #    type: looker_column
-#    model: salesforce_by_segment
+#    model: salesforce
 #    explore: sf__opportunities
 #    dimensions: [sf__accounts.industry]
 #    measures: [sf__accounts.count_customers, sf__opportunities.total_revenue]
@@ -246,7 +246,7 @@
   - name: rep_roster_and_total_pipeline_revenue
     title: 'Rep Roster By Average Annual Revenue and Total Pipeline Revenue'
     type: looker_column
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__opportunities
     dimensions: [opportunity_owners.name]
     measures: [sf__opportunities.total_pipeline_revenue, sf__opportunities.average_revenue_won]
