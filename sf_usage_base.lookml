@@ -1,4 +1,6 @@
-  explore: sf__usage {
+  explore: usage__map {
+label: "Company Usage"
+group_label: "CSM"
 sql_always_where: NOT ${sf__accounts.is_deleted}
   ;;
 
