@@ -56,10 +56,10 @@ view: sf__leads {
     sql: ${TABLE}.statushistory_last_status_updated_c ;;
   }
 
-  dimension: net_new_lead_timestamp {
-    type: date
-    sql: ${TABLE}.new_lead_status_timestamp_c ;;
-  }
+#  dimension: net_new_lead_timestamp {
+#    type: date
+#    sql: ${TABLE}.new_lead_status_timestamp_c ;;
+#  }
 
   dimension_group: marketing_qualified_timestamp {
     type: time
@@ -68,14 +68,14 @@ view: sf__leads {
     sql: ${TABLE}.marketing_qualified_date_c ;;
   }
 
-  measure: net_new_leads_count {
-    type: count
-    drill_fields: [detail*]
-    filters: {
-      field: net_new_lead_timestamp
-      value: "-null"
-    }
-  }
+#  measure: net_new_leads_count {
+#    type: count
+#    drill_fields: [detail*]
+#    filters: {
+#      field: net_new_lead_timestamp
+#      value: "-null"
+#    }
+#  }
 
   measure:  net_active_leads_count {
     type: count

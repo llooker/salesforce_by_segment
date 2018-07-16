@@ -1,4 +1,4 @@
-view: sf_usage_map {
+view: usage__map {
   sql_table_name: usage_data.sf_usage_map ;;
   suggestions: no
 

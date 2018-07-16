@@ -35,6 +35,11 @@ view: sf__opportunities {
       }
   }
 
+  dimension: active_opportunity {
+    type: date
+    sql: ${TABLE}.pipeline_date_c ;;
+  }
+
   dimension: company_name {
     type: string
     sql:  ${TABLE}.name;;
@@ -180,6 +185,14 @@ view: sf__opportunities {
     filters: {
       field: is_closed
       value: "No"
+    }
+  }
+
+  measure: count_active {
+    type: count
+    filters: {
+      field: active_opportunity
+      value: "-null"
     }
   }
 

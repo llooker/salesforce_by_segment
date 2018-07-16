@@ -1,4 +1,4 @@
-view: delivery {
+view: usage__delivery {
   sql_table_name: usage_data.delivery ;;
   suggestions: no
 
