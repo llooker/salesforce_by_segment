@@ -78,6 +78,11 @@ view: sfbase__accounts {
     sql: ${TABLE}.type ;;
   }
 
+  dimension: name {
+    type: string
+    sql: ${TABLE}.name ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, events.count, opportunities.count, tasks.count]

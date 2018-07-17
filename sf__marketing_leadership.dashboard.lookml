@@ -15,7 +15,7 @@
   - name: total_active_customers
     title: 'Total Active Customers'
     type: single_value
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__accounts
     measures: [sf__accounts.count]
     #listen:
@@ -28,30 +28,47 @@
     height: 2
     width: 4
 
+#Remade the total_revenue_this_quarter using total_revenue and contains "Closed Won" see old ML commented out directly below
   - name: total_revenue_this_quarter
     title: 'Total Revenue Closed (Quarter-to-Date)'
-    type: single_value
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__opportunities
-    measures: [sf__opportunities.total_value_c]
+    type: single_value
+    fields: [sf__opportunities.total_revenue]
     filters:
       sf__opportunities.close_quarter: this quarter
-      sf__opportunities.stage_name: '"Closed Won"'
-    sorts: [sf__opportunities.total_value_c desc]
+      sf__opportunities.stage_name: "%Closed Won%"
+    limit: 1000
+    column_limit: 50
     font_size: medium
     text_color: black
     height: 2
     width: 4
 
+  #- name: total_revenue_this_quarter
+  #  title: 'Total Revenue Closed (Quarter-to-Date)'
+  #  type: single_value
+  #  model: salesforce
+  #  explore: sf__opportunities
+  #  measures: [sf__opportunities.total_value_c]
+  #  filters:
+  #    sf__opportunities.close_quarter: this quarter
+  #    sf__opportunities.stage_name: '"Closed Won"'
+  #  sorts: [sf__opportunities.total_value_c desc]
+  #  font_size: medium
+  #  text_color: black
+  #  height: 2
+  #  width: 4
+
   - name: average_deal_size_this_quarter
     title: 'Average Deal Size (Quarter-to-Date)'
     type: single_value
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__opportunities
     measures: [sf__opportunities.average_deal_size]
     filters:
       sf__opportunities.close_quarter: this quarter
-      sf__opportunities.stage_name: '"Closed Won"'
+      sf__opportunities.stage_name: "%Closed Won%" #Changed from is "Closed Won" to contains
     sorts: [sf__opportunities.average_deal_size desc]
     font_size: medium
     text_color: black
@@ -60,55 +77,56 @@
 
 
 # For use with opportunities.type
-#  - name: lead_to_win_funnel_this_quarter
-#    title: 'Lead to Win Funnel (Quarter-to-Date)'
-#    type: looker_column
-#    model: salesforce_by_segment
-#    explore: sf__leads
-#    measures: [sf__leads.count, sf__opportunities.count_new_business, sf__opportunity.count_new_business_won]
+  - name: lead_to_win_funnel_this_quarter
+    title: 'Lead to Win Funnel (Quarter-to-Date)'
+    type: looker_column
+    model: salesforce
+    explore: sf__leads
+#    fields: [sf__leads.count, sf__opportunities.count_new_business, sf__opportunity.count_new_business_won]
+    fields: [sf__leads.count, sf__leads.converted_to_account_count, sf__leads.converted_to_opportunity_count, sf__opportunities.count_won]
 ##    listen:
 ##      state: sf__leads.state
-#    filters:
-#      sf__leads.status: -%Unqualified%
-#      sf__leads.created_date: this quarter
-#    sorts: [sf__leads.count desc]
-#    limit: 500
-#    stacking: ''
-#    colors: ['#635189', '#a2dcf3', '#1ea8df']
-#    show_value_labels: true
-#    label_density: 10
-#    label_color: ['#635189', '#a2dcf3', '#1ea8df']
-#    legend_position: center
-#    x_axis_gridlines: false
-#    y_axis_gridlines: true
-#    show_view_names: true
-#    series_labels:
-#      sf__leads.count: Leads
-#      sf__opportunities.count_new_business: Opportunities
-#      sf__opportunities.count_new_business_won: Won Opportunities
-#    y_axis_combined: true
-#    show_y_axis_labels: true
-#    show_y_axis_ticks: true
-#    y_axis_tick_density: default
-#    show_x_axis_label: true
-#    show_x_axis_ticks: true
-#    x_axis_scale: auto
-#    show_null_labels: false
-#    show_dropoff: true
-#    height: 4
-#    width: 6
+    filters:
+      sf__leads.status: "-%Unqualified%"
+      sf__leads.created_date: this quarter
+    sorts: [sf__leads.count desc]
+    limit: 500
+    stacking: ''
+    colors: ['#635189', '#a2dcf3', '#1ea8df']
+    show_value_labels: true
+    label_density: 10
+    label_color: ['#635189', '#a2dcf3', '#1ea8df']
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    series_labels:
+      sf__leads.count: Leads
+      sf__opportunities.count_new_business: Opportunities
+      sf__opportunities.count_new_business_won: Won Opportunities
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    show_null_labels: false
+    show_dropoff: true
+    height: 4
+    width: 6
 
   - name: deals_closed_by_segment
     title: 'Deals Closed by Month' #by Segment
     type: looker_area
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__opportunities
     dimensions: [sf__opportunities.close_month] #, sf__accounts.business_segment]
     #pivots: [sf__accounts.business_segment]
     measures: [sf__opportunities.count]
     filters:
       sf__opportunities.close_month: before tomorrow
-      sf__opportunities.stage_name: '"Closed Won"'
+      sf__opportunities.stage_name: "%Closed Won%" #Changed is "Closed Won" to contains "Closed Won"
     sorts: [sf__opportunities.close_month] #, sf__accounts.business_segment, sf__accounts.business_segment__sort_]
     limit: 500
     column_limit: 50
@@ -134,7 +152,7 @@
 #  - name: prospects_by_forecast_category_and_segment
 #    title: 'Prospects by Forecast Category and Segment'
 #    type: looker_donut_multiples
-#    model: salesforce_by_segment
+#    model: salesforce
 #    explore: sf__opportunities
 #    dimensions: [account.business_segment, opportunity.forecast_category]
 #    pivots: [opportunity.forecast_category]
@@ -154,55 +172,55 @@
 #    height: 4
 #    width: 6
 
-#  - name: pipeline_forecast
-#    title: 'Pipeline Forecast'
-#    type: looker_column
-#    model: salesforce_by_segment
-#    explore: opportunity
-#    dimensions: [opportunity.probability_group, opportunity.close_month]
-#    pivots: [opportunity.probability_group]
-#    measures: [opportunity.total_revenue]
-#    filters:
-#      opportunity.close_month: 9 months ago for 12 months
-#    sorts: [opportunity.probability_group, opportunity.close_month, opportunity.probability_group__sort_]
-#    query_timezone: America/Los_Angeles
-#    stacking: normal
-#    hidden_series: [Under 20%, Lost]
-#    colors: [lightgrey, '#1FD110', '#95d925', '#d0ca0e', '#c77706', '#bf2006', black]
-#    show_value_labels: true
-#    label_density: 21
-#    legend_position: center
-#    x_axis_gridlines: false
-#    y_axis_gridlines: false
-#    show_view_names: false
-#    series_labels:
-#      '0': Lost
-#      100 or Above: Won
-#    y_axis_combined: true
-#    show_y_axis_labels: true
-#    show_y_axis_ticks: true
-#    y_axis_labels: [Amount in Pipeline]
-#    y_axis_tick_density: default
-#    show_x_axis_label: true
-#    x_axis_label: Opportunity Close Month
-#    show_x_axis_ticks: true
-#    x_axis_datetime_label: '%b %y'
-#    x_axis_scale: ordinal
-#    ordering: none
-#    show_null_labels: false
+  - name: pipeline_forecast
+    title: 'Pipeline Forecast'
+    type: looker_column
+    model: salesforce
+    explore: sf__opportunities
+    dimensions: [sf__opportunities.probability_group, sf__opportunities.close_month]
+    pivots: [sf__opportunities.probability_group]
+    measures: [sf__opportunities.total_revenue]
+    filters:
+      sf__opportunities.close_month: 9 months ago for 12 months
+    sorts: [sf__opportunities.probability_group, sf__opportunities.close_month, sf__opportunities.probability_group__sort_]
+    query_timezone: America/Los_Angeles
+    stacking: normal
+    hidden_series: [Under 20%, Lost]
+    colors: [lightgrey, '#1FD110', '#95d925', '#d0ca0e', '#c77706', '#bf2006', black]
+    show_value_labels: true
+    label_density: 21
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: false
+    show_view_names: false
+    series_labels:
+      '0': Lost
+      100 or Above: Won
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_labels: [Amount in Pipeline]
+    y_axis_tick_density: default
+    show_x_axis_label: true
+    x_axis_label: Opportunities Close Month
+    show_x_axis_ticks: true
+    x_axis_datetime_label: '%b %y'
+    x_axis_scale: ordinal
+    ordering: none
+    show_null_labels: false
 
 
 #  - name: sales_segment_performance
 #    title: 'Sales Segment Performance'
 #    type: looker_column
-#    model: salesforce_by_segment
-#    explore: opportunity
-#    dimensions: [account.business_segment]
-#    measures: [account.count_customers, opportunity.total_revenue]
+#    model: salesforce
+#    explore: sf__opportunities
+#    dimensions: [sf__accounts.industry]
+#    measures: [sf__accounts.count_customers, sf__opportunities.total_revenue]
 #    filters:
-#      account.business_segment: -Unknown
-#      opportunity.stage_name: '"Closed Won"'
-#    sorts: [opportunity.close_month, account.business_segment, account.business_segment__sort_]
+#      sf__accounts.industry: -Unknown
+#      sf__opportunity.stage_name: "%Closed Won%"
+#    sorts: [sf__opportunities.close_month, sf__accounts.industry, sf__accounts.industy__sort_]
 #    limit: 500
 #    column_limit: 50
 #    stacking: ''
@@ -228,7 +246,7 @@
   - name: rep_roster_and_total_pipeline_revenue
     title: 'Rep Roster By Average Annual Revenue and Total Pipeline Revenue'
     type: looker_column
-    model: salesforce_by_segment
+    model: salesforce
     explore: sf__opportunities
     dimensions: [opportunity_owners.name]
     measures: [sf__opportunities.total_pipeline_revenue, sf__opportunities.average_revenue_won]

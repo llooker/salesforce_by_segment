@@ -2,20 +2,48 @@ include: "sfbase__opportunities.view.lkml"
 view: sf__opportunities {
   extends: [sfbase__opportunities]
 
-  dimension: is_lost {
-    type: yesno
-    sql: ${is_closed} AND NOT ${is_won} ;;
+  dimension: probability_group {
+      case:{
+        when:{
+          sql: ${TABLE}.probability = 100;;
+          label: "Won"
+        }
+        when:{
+          sql: ${TABLE}.probability > 80;;
+          label: "Above 80%"
+        }
+        when: {
+          sql: ${TABLE}.probability > 60;;
+          label: "60 - 80%"
+        }
+        when: {
+          sql: ${TABLE}.probability > 40;;
+          label: "40 - 60%"
+        }
+        when: {
+          sql: ${TABLE}.probability > 20;;
+          label: "20 - 40%"
+        }
+        when: {
+          sql: ${TABLE}.probability > 0;;
+          label: "Under 20%"
+        }
+        when: {
+          sql: ${TABLE}.probability = 0;;
+          label: "Lost"
+        }
+      }
   }
 
-  #  - dimension: probability_group
-  #    sql_case:
-  #      'Won': ${probability} = 100
-  #      'Above 80%': ${probability} > 80
-  #      '60 - 80%': ${probability} > 60
-  #      '40 - 60%': ${probability} > 40
-  #      '20 - 40%': ${probability} > 20
-  #      'Under 20%': ${probability} > 0
-  #      'Lost': ${probability} = 0
+  dimension: active_opportunity {
+    type: date
+    sql: ${TABLE}.pipeline_date_c ;;
+  }
+
+  dimension: company_name {
+    type: string
+    sql:  ${TABLE}.name;;
+  }
 
   dimension: created_raw {
     type:  date_raw
@@ -43,7 +71,38 @@ view: sf__opportunities {
     sql: ${days_open} <=60 AND ${is_closed} = 'yes' AND ${is_won} = 'yes' ;;
   }
 
+  dimension: type {
+    type: string
+    sql: ${TABLE}.type ;;
+  }
+
+  dimension: annual_contract_value {
+    type: number
+    sql: ${TABLE}.annual_contract_value_c ;;
+  }
+
+  dimension: bookings_value {
+    type: number
+    sql: ${TABLE}.bookings_value_c ;;
+  }
+
+  dimension: contract_term_months {
+    type: number
+    sql: ${TABLE}.contract_term_months_c_c ;;
+  }
+
+  dimension: currency {
+    type: string
+    sql: ${TABLE}.currency_iso_code ;;
+  }
+
   # measures #
+
+  measure: sum_of_bookings_value {
+    type: sum
+    sql: ${bookings_value} ;;
+    value_format: "$#,##0"
+  }
 
   measure: total_revenue {
     type: sum
@@ -126,6 +185,14 @@ view: sf__opportunities {
     filters: {
       field: is_closed
       value: "No"
+    }
+  }
+
+  measure: count_active {
+    type: count
+    filters: {
+      field: active_opportunity
+      value: "-null"
     }
   }
 
